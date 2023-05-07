@@ -6,11 +6,13 @@ public class FileSyncTool
 {
     private readonly string _sourceDir;
     private readonly string _targetDir;
+    private readonly bool _overwrite;
 
-    public FileSyncTool(string sourceDir, string targetDir)
+    public FileSyncTool(string sourceDir, string targetDir, bool overwrite)
     {
         _sourceDir = sourceDir;
         _targetDir = targetDir;
+        _overwrite = overwrite;
     }
 
     public void Sync()
@@ -44,22 +46,19 @@ public class FileSyncTool
 
                 // If the hashes don't match, ask the user if they want to overwrite the file
                 Console.WriteLine($"The file '{relativePath}' already exists in the target directory.");
-                Console.Write("Do you want to overwrite it? (y/n) ");
-
-                var key = Console.ReadKey().KeyChar;
-                Console.WriteLine();
-
-                if (key != 'y' && key != 'Y')
+                if (_overwrite)
                 {
+                    Console.WriteLine($"Overwriting {relativePath}...");    
+                }
+                else {
                     Console.WriteLine($"Skipping '{relativePath}' (user cancelled overwrite)");
-                    continue;
                 }
             }
 
             // Copy the file to the target directory
             Console.WriteLine($"Copying '{relativePath}' to {_targetDir}");
             Directory.CreateDirectory(Path.GetDirectoryName(targetFile));
-            File.Copy(sourceFile, targetFile, true);
+            File.Copy(sourceFile, targetFile, _overwrite);
         }
     }
 
