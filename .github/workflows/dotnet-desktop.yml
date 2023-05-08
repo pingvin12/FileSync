@@ -72,13 +72,6 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    
-    - name: Manifest
-      run: dotnet new tool-manifest
-    
-    # Install stryker
-    - name: Install dotnet stryker
-      run: dotnet tool install dotnet-stryker
       
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
