@@ -24,7 +24,7 @@ style: |
 
 <p>Egy folyamat ami változásokat hoz létre a kódunkban, és lefuttatja a teszteket.
 Ebben az esetben a teszteknek el kéne bukniuk. Ha nem buknak el, az jelentheti azt hogy a tesztek nem teljesen 
-fedik le a kódot.</p>
+fedik le a kódot amit írtunk.</p>
 
 ---
 
@@ -41,27 +41,39 @@ public bool IsOldEnough(int age) => age > 18;
 
 <p> Ezt a metódust Stryker meg fogja találni és a következők alapján fog rajta módosításokat végezni:</p>
 <code>
-/* 1 */ return age > 18;
-/* 2 */ return age < 18;
-/* 3 */ return false;
-/* 4 */ return true;
+/* 1 */ return age > 18; // teszt megfelelően lefut
+/* 2 */ return age < 18; // teszt elhasal
+/* 3 */ return false; // teszt elhasal
+/* 4 */ return true; // teszt megfelelően lefut
 </code>
 
-
 ---
-## Telepítés globálisan
-```
-dotnet tool install -g dotnet-stryker
-```
 
----
-# Mi történik a fedél alatt...
+# Mit csinál tömören
 
 ```
 dotnet stryker --solution "/my-solution-dir/mysolution.sln"
 ```
 Parancs futtatást követően stryker átmegy a projektünkön, a teszt eseteinken és bugokat helyez el.
+Bugok elhelyesével információt kapunk arról, hogy az elhelyezett részletek nem-megléte/módosítása hogyan változtat a programunk futásán - teszt eseteink eredményein.
+
+
 ---
+# Nézzünk egy példát egy egyszerű projekten
+
+* A projekt két mappa között csinál ellenőrzést, és kiegészít ha a célpont mappából hiányzik az ami a kezdő mappában van.
+* A projekthez írtunk unit teszteket (xUnit) ezek a tesztek hiba nélkül lefutnak.
+
+<footer> FileSync (https://github.com/pingvin12/FileSync) </footer>
+
+---
+
+# Jelentések és mutációk
+
+<footer>Következő diákon</footer>
+
+---
+
 # Aritmetikai mutációk
 
 <table><thead><tr><th>Eredeti</th><th>Mutáció alatt</th></tr></thead><tbody><tr><td><code>+</code></td><td><code>-</code></td></tr><tr><td><code>-</code></td><td><code>+</code></td></tr><tr><td><code>*</code></td><td><code>/</code></td></tr><tr><td><code>/</code></td><td><code>*</code></td></tr><tr><td><code>%</code></td><td><code>*</code></td></tr></tbody></table>
@@ -171,3 +183,12 @@ Minden egyes futtatásnál stryker egy html reportot készít nekünk amit meg t
 </table>
 
 ---
+
+# Köszönöm a figyelmet!
+
+---
+
+# Források
+
+- Nick Chapsas videója - https://www.youtube.com/watch?v=sGwfwtkaDfk&ab_channel=NickChapsas
+- Stryker dotnet docs - https://stryker-mutator.io/docs/stryker-net/introduction/
