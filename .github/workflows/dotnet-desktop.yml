@@ -88,9 +88,9 @@ jobs:
       run: dotnet stryker --output ./StrykerReports
       
     - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@4.1.1
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        github_token: gh-pages
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./StrykerReports
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
