@@ -81,6 +81,9 @@ jobs:
     - name: Execute unit tests
       run: dotnet test
     
+    - name: Tool restore
+      run: dotnet tool restore
+    
     - name: Run Stryker
       run: dotnet stryker --output ./StrykerReports
       
